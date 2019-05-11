@@ -5,8 +5,12 @@
     {% for post in posts %}
         <div>
             <h2> {{ post.title }} </h2>
-            <p> {{ post.lead }} </p>
+            <p> {{ post.lead }} </p>        
         </div>
+
+        <a class="btn btn-primary" href="{{ path('post_show', {'id':post.id}) }}" role="button">Read full article</a>
+
+        <hr>
     {% endfor %}
 
     <div class="navigation">
