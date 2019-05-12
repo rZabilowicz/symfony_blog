@@ -56,11 +56,9 @@ class Post
      */
     private $comments;
 
-    // public function __toString()
-    // {
-    //     return (string) $this->getTitle();
-    // }
-
+    public function __toString(){
+        return $this;
+    }
 
     /**
      * Get id
@@ -208,4 +206,5 @@ class Post
     {
         return $this->comments;
     }
+
 }

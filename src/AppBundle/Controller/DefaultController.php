@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DefaultController extends Controller
@@ -27,7 +27,7 @@ class DefaultController extends Controller
         $pagination = $paginator->paginate(
             $qb,
             $request->query->get('page', 1),
-            5
+            7
         );
 
         return $this->render('default/index.html.twig', array(
@@ -48,8 +48,19 @@ class DefaultController extends Controller
             $comment->setUser($user);
 
             $form = $this->createFormBuilder($comment)
-            ->add('content', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Send'])
+            ->add('content', TextareaType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Write your comment here...',
+                    'style' => 'height: 70px; resize: none;'
+                ] 
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Send', 
+                'attr' => [
+                    'class' => 'btn btn-primary float-right'
+                ]
+            ])
             ->getForm();
     
             $form->handleRequest($request);
