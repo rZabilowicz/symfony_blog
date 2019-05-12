@@ -96,3 +96,8 @@ fos_user:
     from_email:
         address: "roza0707id@gmail.com"
         sender_name: "No Reply"
+
+easy_admin:
+    entities:
+        - AppBundle\Entity\Post
+        - AppBundle\Entity\Comment
