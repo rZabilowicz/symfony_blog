@@ -16,15 +16,26 @@
         {% for comment in post.comments %}
             <div>
                 <p>{{ comment.content }}</p>
-                <span class="float-right">Added: {{ post.createdAt | date('H:i d/m/Y')}}</span>
+                <span class="float-right">
+                    Added: {{ post.createdAt | date('H:i d/m/Y')}}
+                    {% if comment.user %}
+                        By: {{ comment.user }}
+                    {% endif %}
+                </span>
                 <br>
                 <hr>
             </div>
         {% endfor %}
 
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="button" class="btn btn-default float-right">Add comment</button>
-        {{ form_end(form) }}
+        {% if app.user %}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        {% else %} 
+            <p> 
+                If you want to comment current article - you must to be  
+                <a href="{{ path('fos_user_security_login') }}">login.</a>
+            </p>
+        {% endif %}
     </div>  
 {% endblock %}

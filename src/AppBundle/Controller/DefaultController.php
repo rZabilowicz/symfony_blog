@@ -40,38 +40,33 @@ class DefaultController extends Controller
      */
     public function showAction(Post $post, Request $request) 
     {
-       // $form = $this->createForm(new CommentType());
-        $comment = new Comment();
-        $comment->setPost($post);
-    
-        $form = $this->createFormBuilder($comment)
-        ->add('content', TextType::class)
-        ->add('save', SubmitType::class, ['label' => 'Send'])
-        ->getForm();
+        $form = null;
 
-        $form->handleRequest($request);
+        if ($user = $this->getUser()) {
+            $comment = new Comment();
+            $comment->setPost($post);
+            $comment->setUser($user);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            // $comment = $form->getData();
-            // $comment->setCreatedAt(new \DateTime('H:i d/m/Y'));
-
+            $form = $this->createFormBuilder($comment)
+            ->add('content', TextType::class)
+            ->add('save', SubmitType::class, ['label' => 'Send'])
+            ->getForm();
     
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            $entityM = $this->getDoctrine()->getManager();
-            $entityM->persist($comment);
-            $entityM->flush();
+            $form->handleRequest($request);
     
-            $this->addFlash('success', 'Comment added corectly');
-            return $this->redirectToRoute('post_show',array('id'=>$post->getId()));
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityM = $this->getDoctrine()->getManager();
+                $entityM->persist($comment);
+                $entityM->flush();
+        
+                $this->addFlash('success', 'Comment added corectly');
+                return $this->redirectToRoute('post_show',array('id'=>$post->getId()));
+            }
         }
     
-
         return $this->render('default/show.html.twig', array(
             'post'=> $post,
-            'form'=>$form->createView()
+            'form'=>is_null($form) ? $form : $form->createView()
         ));
     }
 }
