@@ -9,9 +9,8 @@
 
                         <div class="post-heading">
                             <p style="text-align:center">
-
                                 {% if app.user %}
-
+                                    Zalogowany jako {{app.user}} |
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <a href="{{ path('admin') }}" style="color: white">Panel Administratora</a> |
                                     {% endif %}
@@ -33,16 +32,12 @@
         </header>
 
         <article>
-
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-                        <p style="text-align:justify">{{ post.content }}</p>
+                     <p style="text-align:justify">{{ post.content }}</p>
                         <img src="{{ post.photo }}" alt="Obrazek">
-
                         <h3>Comments</h3>
-
                         {% for comment in post.comments %}
                             <div>
                                 <p>{{ comment.content }}</p>
@@ -67,13 +62,9 @@
                                 <a href="{{ path('fos_user_security_login') }}">login.</a>
                             </p>
                         {% endif %}
-
+                        <a href="/" style="float:right">Powrót do strony głównej -> </a>
                     </div>
-
                 </div>
-
             </div>
-
         </article>
-
 {% endblock %}
