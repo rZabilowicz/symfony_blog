@@ -36,7 +36,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
 
-    form_themes: ['bootstrap_3_layout.html.twig']
+    form_themes: ['bootstrap_3_layout.html.twig','@FOSCKEditor/Form/ckeditor_widget.html.twig']
 
 # Doctrine Configuration
 doctrine:
@@ -99,4 +99,12 @@ fos_user:
 
 easy_admin:
     entities:
-        - AppBundle\Entity\Post
+        Post:
+            class: AppBundle\Entity\Post
+            form:
+                fields:
+                    - { property: 'title', type: 'fos_ckeditor' }
+                    - { property: 'lead', type: 'fos_ckeditor' }
+                    - { property: 'content', type: 'fos_ckeditor' }
+                    - createdAt
+                    - photo

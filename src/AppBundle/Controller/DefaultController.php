@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 class DefaultController extends Controller
 {
     /**
@@ -19,7 +21,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $today = (new DateTime('now'))->format('Y-m-d H:i');;
+        $today = date('Y-m-d H:i');
 
         $qb = $this->getDoctrine()
             ->getManager()->createQueryBuilder()->from('AppBundle:Post','p')
