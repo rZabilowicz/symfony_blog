@@ -17,11 +17,11 @@ class LoadPostData extends Fixture
         for ($i = 0; $i < 20; $i++) {
 
             $post = new Post();
-            $post->setTitle($faker->sentence(3));
-            $post->setLead($faker->text(300));
-            $post->setContent($faker->text(700));
+            $post->setTitle($faker->sentence(4));
+            $post->setLead($faker->text(200));
+            $post->setContent($faker->text(1500));
             $post->setCreatedAt($faker->dateTimeThisMonth);
-
+            $post->setPhoto($faker->imageUrl($width=750, $height=450, 'nature'));
 
             $manager->persist($post);
         }

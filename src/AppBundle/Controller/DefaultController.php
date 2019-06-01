@@ -19,9 +19,14 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $today = (new DateTime('now'))->format('Y-m-d H:i');;
+
         $qb = $this->getDoctrine()
             ->getManager()->createQueryBuilder()->from('AppBundle:Post','p')
-            ->select('p');
+            ->select('p')
+            ->where('p.createdAt < :date')
+            ->setParameter('date', $today)
+            ->orderBy('p.createdAt','desc');
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

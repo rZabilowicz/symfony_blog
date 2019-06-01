@@ -1,30 +1,68 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Sipbc blog 2019{% endblock %}</title>
+    {% block stylesheets %}
+        <!-- Bootstrap Core CSS -->
+        <link href="{{ asset('includes/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Theme CSS -->
+        <link href="{{ asset('includes/css/clean-blog.min.css') }}" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="{{ asset('includes/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+        .post-meta {
+            font-size: 18px;
+            font-style: italic;
+            margin-top: 0;
+            color: #868e96;
+        }
+        </style>
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+
+    {% block body %}{% endblock %}
+    <hr>
+    <footer>
         <div class="container">
-            <div class="float-right">
-                {% if app.user %}
-                    Logged as {{app.user}} | 
-
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('admin') }}">Admin Panel</a> | 
-                    {% endif %}
-
-                    <a href="{{ path('fos_user_security_logout') }}">Logout</a>
-                {% else %}
-                     <a href="{{ path('fos_user_security_login') }}">Login</a>
-                {% endif %}
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://pl-pl.facebook.com/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                               <li>
+                            <a href="https://twitter.com/?lang=pl">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">SIPBC 2019 ZUT <br/> RÓŻA ŻABIŁOWICZ 36A </p>
+                </div>
             </div>
-            {% block body %}{% endblock %}
         </div>
-        {% block javascripts %}{% endblock %}
-    </body>
+    </footer>
+</body>
 </html>

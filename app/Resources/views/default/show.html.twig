@@ -1,41 +1,79 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ post.title }}</h1>
-    <div>
-        <p>{{ post.lead }}</p>
-        <p>{{ post.content }}</p>
+        <header class="masthead" style="background-image: url('../includes/img/about-bg.jpg')">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-        <span class="float-right">Added: {{ post.createdAt | date('H:i d/m/Y')}}</span>
-        
-        <br>
-        <hr>
+                        <div class="post-heading">
+                            <p style="text-align:center">
 
-        <h3>Comments</h3>
+                                {% if app.user %}
 
-        {% for comment in post.comments %}
-            <div>
-                <p>{{ comment.content }}</p>
-                <span class="float-right">
-                    Added: {{ post.createdAt | date('H:i d/m/Y')}}
-                    {% if comment.user %}
-                        By: {{ comment.user }}
-                    {% endif %}
-                </span>
-                <br>
-                <hr>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('admin') }}" style="color: white">Panel Administratora</a> |
+                                    {% endif %}
+                                    <a href="{{ path('fos_user_security_logout') }}" style="color: white">Wyloguj</a>
+                                {% else %}
+                                    <a href="{{ path('fos_user_security_login') }}" style="color: white">Zaloguj</a>
+                                {% endif %}
+
+                            </p>
+                            <hr>
+                            <h1>{{ post.title }}</h1>
+                            <p style="text-align:justify">{{ post.lead }}</p>
+                            <span class="post-meta" style="color: white">Dodano przez admin w dniu {{ post.createdAt | date('H:i d/m/Y')}}</span>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        {% endfor %}
+        </header>
 
-        {% if app.user %}
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            {{ form_end(form) }}
-        {% else %} 
-            <p> 
-                If you want to comment current article - you must to be  
-                <a href="{{ path('fos_user_security_login') }}">login.</a>
-            </p>
-        {% endif %}
-    </div>  
+        <article>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                        <p style="text-align:justify">{{ post.content }}</p>
+                        <img src="{{ post.photo }}" alt="Obrazek">
+
+                        <h3>Comments</h3>
+
+                        {% for comment in post.comments %}
+                            <div>
+                                <p>{{ comment.content }}</p>
+                                <span class="post-meta">
+                                    Dodane dnia: {{ comment.createdAt | date('H:i d/m/Y')}}
+                                    {% if comment.user %}
+                                        Przez: {{ comment.user }}
+                                    {% endif %}
+                                </span>
+                                <br>
+                                <hr>
+                            </div>
+                        {% endfor %}
+
+                        {% if app.user %}
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                        {% else %} 
+                            <p> 
+                                If you want to comment current article - you must to be  
+                                <a href="{{ path('fos_user_security_login') }}">login.</a>
+                            </p>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
 {% endblock %}

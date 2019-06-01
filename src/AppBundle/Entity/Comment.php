@@ -51,7 +51,7 @@ class Comment
     private $user;
 
     public function __construct() {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTime('now');
     }
 
     public function __toString(){

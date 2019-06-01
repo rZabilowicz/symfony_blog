@@ -56,6 +56,13 @@ class Post
      */
     private $comments;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=255)
+     */
+    private $photo;
+
     public function __toString(){
         return $this;
     }
@@ -207,4 +214,28 @@ class Post
         return $this->comments;
     }
 
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     *
+     * @return Post
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
 }
